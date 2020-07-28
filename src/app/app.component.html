@@ -1,3 +1,39 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <ion-menu menuId="main-menu" contentId="main">
+    <ion-content>
+      <div class="spaceAboveMenu"></div>
+      <div class="menu-header-bg">
+        <!-- <ion-img [src]="/assets/icon/ccbstlogo.png"></ion-img> -->
+      </div>
+      <div class="header-content">
+
+      </div>
+      <ion-list class="menu-items" lines="none">
+        <ion-item href="/dashboard"> 
+          <ion-icon name="pie-chart-outline"></ion-icon>Dashboard
+        </ion-item>
+        <ion-item href="/assignment"> 
+          <ion-icon name="chatbubble-ellipses-outline"></ion-icon>Assignments
+        </ion-item>
+        <ion-item href="/t2202">
+          <ion-icon name="pie-chart-outline"></ion-icon>T2202
+        </ion-item>
+        <ion-item href="/books">
+          <ion-icon name="flash"></ion-icon>Books
+        </ion-item>
+        <ion-item href="/payments">
+          <ion-icon name="pie-chart-outline"></ion-icon>Payments
+        </ion-item>
+        <ion-item href="/marksheet">
+          <ion-icon name="heart-outline"></ion-icon>Marksheet
+        </ion-item>
+        <ion-item (click)="signOut()">
+          <ion-icon name="exit-outline"></ion-icon>Sign Out
+        </ion-item>
+        
+      </ion-list>
+      <!-- <h1>Menu</h1> -->
+    </ion-content>
+  </ion-menu>
+  <ion-router-outlet id="main"></ion-router-outlet>
 </ion-app>

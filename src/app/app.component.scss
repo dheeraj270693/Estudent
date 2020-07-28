@@ -1,0 +1,32 @@
+// * {
+//     font-family: lato;
+// }
+
+.spaceAboveMenu {
+    height: 1.2%;
+    background-color: transparent;
+}
+
+.menu-header-bg {
+    height: 70px;
+    width: 304px;
+    background-color:  #ac2222;
+    background-image: url('/assets/icon/ccbstlogo.png');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+}
+
+.menu-items {
+    margin:  0px;
+
+    ion-icon {
+        margin-right: 20px;
+        color: #86979f;
+    }
+
+    ion-item {
+        padding-left: 20px;
+        margin-bottom: 10px;
+    }
+}
