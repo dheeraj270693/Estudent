@@ -4,6 +4,11 @@ import { ToastController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import {  MenuController } from '@ionic/angular';
+import { WebService} from '../services/web.service';
+import { Dictionary } from "lodash";
+
+import { from } from 'rxjs';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-login',
@@ -17,8 +22,9 @@ export class LoginPage implements OnInit {
     private router: Router,
     private storage: Storage,
     private browser: InAppBrowser,
-    public menuCtrl: MenuController
-  ) { 
+    public menuCtrl: MenuController,
+    private WebService: WebService
+    ) { 
     // this.openInAppBrowser();
   }
 
@@ -33,37 +39,49 @@ export class LoginPage implements OnInit {
     // this.openInAppBrowser();
   }
 
+  async presentToast(msg) {
+    const toast = await this.toastController.create({
+      message: msg,
+      duration: 2000
+    });
+    toast.present();
+  }
+
+
   openInAppBrowser(){
     var url = "https://ccbst.ccbst.co/student/payments";
     this.browser.create(url,'_blank')
   }
 
   loginBtnClicked(){
-    // this.storage.set('isLogin', true);
+    let passwordText = (document.getElementById('passwordText') as HTMLInputElement).value;
+    var response:Dictionary<string>= {};
+
+    let loginParams  = {
+      'password': passwordText
+    };
+   
     // this.router.navigate(['/', 'dashboard']);
     // this.storage.get('isLogin').then((val) => {
     //   console.log('Are u logged in?', val);
     // });
   
-    this.randomNumber();
-  }
+    // this.randomNumber();
 
-  randomNumber(){
-    var i = 1;
-        for(i=i; i>0 && i<100; i++){
-          // for( i in 1..100 ){
+  this.WebService.loginPostData(loginParams).subscribe((data)=>{
 
-         //i in 1..100 {
-            var myText = ""
-            if ((i % 3 == 0) || (i%10 == 3) || ((i/10)%10 == 3)){
-                myText = " snap"
-            }
-            if ((i % 7 == 0) || (i%10 == 7) || ((i/10)%10 == 7)){
-                myText += " crackle"
-            }
-            console.log(i + myText);
-        }
+    this.storage.set('AUTH_TOKEN', data['token']);
+    this.storage.set('isLogin', true);
 
+    this.router.navigate(['/', 'dashboard']);
+    // this.storage.get('isLogin').then((val) => {
+    //   console.log('Are u logged in?', val);
+    // });
+  }, error => {
+      console.log(error);
+      console.log('Could Not Login...');
+      this.presentToast(error["message"]);
+  });
   }
 
 }

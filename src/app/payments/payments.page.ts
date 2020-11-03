@@ -7,7 +7,8 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
   styleUrls: ['./payments.page.scss'],
 })
 export class PaymentsPage implements OnInit {
-
+  
+  PAYMENT_URL = 'https://ccbst.org/CCBST-LIVE/student/payments';
   constructor(
     private browser: InAppBrowser,
 
@@ -19,12 +20,12 @@ export class PaymentsPage implements OnInit {
   }
 
   openInAppBrowser(){
-    var url = "https://ccbst.ccbst.co/student/payments";
+    // var url = "";
     // var options = InAppBrowserOptions={
     //   zoom:'yes'
     // }
 
-    this.browser.create(url,'_self');
+    this.browser.create(this.PAYMENT_URL,'_self');
   }
 
 }
